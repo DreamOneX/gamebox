@@ -42,7 +42,7 @@ object Gamebox : KotlinPlugin(
                         if("${jsclass.status}"=="200"){
                             var content =""
                             for (d in jsclass.data){
-                                content=content+"${d.name}:${d.content}"
+                                content=content+"\n${d.name}:\n${d.content}"
                             }
                             val chain = buildMessageChain {
                                 +At(sender.id)
