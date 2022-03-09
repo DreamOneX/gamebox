@@ -72,7 +72,7 @@ object Gamebox : KotlinPlugin(
                            +PlainText("分享查找")
                            +PlainText("帮助")
                            +PlainText("关于")
-                        }
+                        })}
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("帮助")){
                         subject.sendMessage(buildMessageChain {
                            +PlainText("游戏查找功能不需要注册，其他功能需先进行注册。所有命令都在at机器人的前提")
