@@ -42,55 +42,51 @@ object Gamebox : KotlinPlugin(
                         if("${jsclass.status}"=="200"){
                             var content =""
                             for (d in jsclass.data){
-                                content=content+"\n${d.name}:\n${d.content}"
+                                content=content+"${d.name}:${d.content}"
                             }
                             val chain = buildMessageChain {
                                 +At(sender.id)
-                                                                                                                                                                                                +PlainText("\n找到啦！一共有${jsclass.data.size}条数据！${content}")
+                                                                                                                                                                                                +PlainText("找到啦！一共有${jsclass.data.size}条数据！${content}")
                             }
                             subject.sendMessage(chain)
                         }else{
                             if("${jsclass.status}"=="201"){
-                                subject.sendMessage(buildMessageChain {
-                                                                                                                                                                                                                        +PlainText("\n暂时没有这个游戏哦！！")
-                                })
+                                subject.sendMessage(buildMessageChain {+PlainText("暂时没有这个游戏")})
                             }else{
                                 if("${jsclass.status}"=="500"){
-                                    subject.sendMessage("\n出错了！！！")
+                                    subject.sendMessage("接口内部错误")
                                 }
                             }
                         }
                     }
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("游戏菜单")){
                         subject.sendMessage(buildMessageChain {
-                                                                                                                                                                                                    +PlainText("\n        游戏菜单\n")
-                                                                                                                                                                                                    +PlainText("\n        注册账号\n")
-                                                                                                                                                                                                    +PlainText("\n            签到  \n")
-                                                                                                                                                                                                    +PlainText("\n        我的资产\n")
-                                                                                                                                                                                                    +PlainText("\n    随机二次元游戏\n")
-                                                                                                                                                                                                    +PlainText("\n        游戏查找\n")
-                                                                                                                                                                                                    +PlainText("\n    二次元游戏查找\n")
-                                                                                                                                                                                                    +PlainText("\n        分享游戏\n")
-                                                                                                                                                                                                    +PlainText("\n        分享说明\n")
-                                                                                                                                                                                                    +PlainText("\n        分享查找\n")
-                                                                                                                                                                                                    +PlainText("\n            帮助\n")
-                                                                                                                                                                                                    +PlainText("\n            关于\n")
-                                                                                                                                                                                                })
+                           +PlainText("注册账号")
+                           +PlainText("签到")
+                           +PlainText("我的资产")
+                           +PlainText("随机二次元游戏")
+                           +PlainText("游戏查找")
+                           +PlainText("二次元游戏查找")
+                           +PlainText("分享游戏")
+                           +PlainText("分享说明")
+                           +PlainText("分享查找")
+                           +PlainText("帮助")
+                           +PlainText("关于")
                         }
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("帮助")){
                         subject.sendMessage(buildMessageChain {
-                                                                                                                                                                                                    +PlainText("\n游戏查找功能不需要注册，其他功能需先进行注册。所有命令都在at机器人的前提\n")
-                                                                                                                                                                                                    +PlainText("\n（二次元/分享/ ）游戏查找，命令后加游戏名字即可（例：游戏查找GTA5），可进行模糊搜索，请不要过于模糊，结果过多将不能发出\n")
-                                                                                                                                                                                                    +PlainText("\n注册账号，我的资产，随机二次元游戏，关于，帮助直接输入命令即可\n")
-                                                                                                                                                                                                    +PlainText("\n二次元游戏查找，随机二次元游戏需要1金币才能使用，每日签到可随机获得1-5个金币，初始金币20\n")
-                                                                                                                                                                                                    +PlainText("\n分享游戏，用于用户上传，可搜索其他用户分享的游戏，对于没有且有用的游戏将会导入至机器人，并会对被采纳的用户奖励20金币，欢迎各位积极分享\n")
-                                                                                                                                                                                                })
+                           +PlainText("游戏查找功能不需要注册，其他功能需先进行注册。所有命令都在at机器人的前提")
+                           +PlainText("（二次元/分享/ ）游戏查找，命令后加游戏名字即可（例：游戏查找GTA5），可进行模糊搜索，请不要过于模糊，结果过多将不能发出")
+                           +PlainText("注册账号，我的资产，随机二次元游戏，关于，帮助直接输入命令即可")
+                           +PlainText("二次元游戏查找，随机二次元游戏需要1金币才能使用，每日签到可随机获得1-5个金币，初始金币20")
+                           +PlainText("分享游戏，用于用户上传，可搜索其他用户分享的游戏，对于没有且有用的游戏将会导入至机器人，并会对被采纳的用户奖励20金币，欢迎各位积极分享")
+             })
                     }
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("关于")){
                         subject.sendMessage(buildMessageChain {
-                                                                                                                                                                        +PlainText("\n插件作者QQ：1441577495\n")
-                                                                                                                                                                        +PlainText("\n如果你有好的意见或建议，发送到邮箱1441577495@qq.com,或加QQ联系，看到将第一时间回复。\n")
-                                                                                                                                                                    })
+                           +PlainText("插件作者QQ：1441577495")
+                           +PlainText("如果你有好的意见或建议，发送到邮箱1441577495@qq.com,或加QQ联系，看到将第一时间回复。")
+                           })
                     }
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("注册账号")){
                         val client = OkHttpClient()
@@ -106,27 +102,26 @@ object Gamebox : KotlinPlugin(
                             subject.sendMessage(buildMessageChain {
                                 +At(sender.id)
                                 +PlainText("注册成功！")
-                                                                                                                            })
+                            })
                         }else{
                             if("${jsclass.status}"=="400"){
                                 subject.sendMessage(buildMessageChain {
                                     +At(sender.id)
                                     +PlainText("失败")
-                                                                                                                                            })
+                                })
                             }else{
                                 if("${jsclass.status}"=="401"){
                                     subject.sendMessage(buildMessageChain {
                                         +At(sender.id)
                                         +PlainText("用户已存在！")
-                                                                                                                                                        })
+                                    })
                             }else{
                                     if("${jsclass.status}"=="500"){
                                         subject.sendMessage(buildMessageChain {
                                             +At(sender.id)
                                             +PlainText("错误")
-                                                                                                                                                                            })
+                                        })
                                     }
-
                                 }
                             }
                         }
@@ -143,22 +138,22 @@ object Gamebox : KotlinPlugin(
                         if("${jsclass.status}"=="200"){
                             subject.sendMessage(buildMessageChain {
                                 +At(sender.id)
-                                +PlainText("\n签到成功！！")
-                                                                                                                                +PlainText("\n恭喜你获得了${jsclass.data}金币！")
+                                +PlainText("签到成功")
+                                +PlainText("恭喜你获得了${jsclass.data}金币！")
                             })
                         }else{
                             if("${jsclass.status}"=="401"){
                                 subject.sendMessage(buildMessageChain {
                                     +At(sender.id)
-                                    +PlainText("\n重复签到！！")
-                                                                                                                                                +PlainText("\n今天你已经签到过了，明天再来吧！")
+                                    +PlainText("重复签到")
+                                    +PlainText("今天你已经签到过了，明天再来吧！")
                                 })
                             }else{
                                 if("${jsclass.status}"=="400"){
                                     subject.sendMessage(buildMessageChain {
                                         +At(sender.id)
-                                        +PlainText("\n用户不存在！！")
-                                                                                                                                                                +PlainText("\n请先注册账号再试！！")
+                                        +PlainText("用户不存在")
+                                        +PlainText("请先注册账号再试")
                                     })
                             }
                         }
@@ -176,14 +171,14 @@ object Gamebox : KotlinPlugin(
                         if("${jsclass.status}"=="200"){
                             subject.sendMessage(buildMessageChain {
                                 +At(sender.id)
-                                +PlainText("\n你的金币还有${jsclass.data.point}个")
-                                                                                                                                +PlainText("\n你的上次签到时间为${jsclass.data.sign_in}加8小时！")
+                                +PlainText("你的金币还有${jsclass.data.point}个")
+                                +PlainText("你的上次签到时间为${jsclass.data.sign_in}加8小时！")
                             })
                         }else{
                             if("${jsclass.status}"=="201"){
                                 subject.sendMessage(buildMessageChain {
                                     +At(sender.id)
-                                                                                                                                                +PlainText("\n查无此人！")
+                                    +PlainText("查无此人！")
                                 })
                             }
                         }
@@ -194,22 +189,22 @@ object Gamebox : KotlinPlugin(
                         if("${back.status}"=="400"){
                             subject.sendMessage(buildMessageChain {
                                 +At(sender.id)
-                                +PlainText("\n用户不存在！！")
-                                                                                                                                +PlainText("\n请先注册账号再试！！")
+                                +PlainText("用户不存在")
+                                +PlainText("请先注册账号再试")
                             })
                         }else{
                             if("${back.status}"=="401"){
                                 subject.sendMessage(buildMessageChain {
                                     +At(sender.id)
-                                    +PlainText("\n金币不足！！")
-                                                                                                                                                +PlainText("\n先凑够足够的金币再来吧！")
+                                    +PlainText("金币不足")
+                                    +PlainText("先凑够足够的金币再来吧！")
                                 })
                             }else{
                                 if("${back.status}"=="200"){
                                     subject.sendMessage(buildMessageChain {
                                         +At(sender.id)
-                                        +PlainText("\n扣费成功！！")
-                                                                                                                                                                +PlainText("\n你失去了1金币！")
+                                        +PlainText("扣费成功")
+                                        +PlainText("你失去了1金币！")
                                 })
                                     val client = OkHttpClient()
                                     val result:String
@@ -222,13 +217,13 @@ object Gamebox : KotlinPlugin(
                                     if("${jsclass.status}"=="200"){
                                         subject.sendMessage(buildMessageChain {
                                             +At(sender.id)
-                                                                                                                                                                                +PlainText("\n找到了！")
-                                                                                                                                                                                +PlainText("\n${jsclass.data.name}:\n${jsclass.data.content}")
+                                            +PlainText("找到了！")
+                                            +PlainText("${jsclass.data.name}:${jsclass.data.content}")
                                         })
                                     }else{
                                         subject.sendMessage(buildMessageChain {
                                             +At(sender.id)
-                                                                                                                                                                                +PlainText("\n失败了！")
+                                            +PlainText("失败了！")
                                         })
                                     }
                             }else{
@@ -243,22 +238,22 @@ object Gamebox : KotlinPlugin(
                         if("${back.status}"=="400"){
                             subject.sendMessage(buildMessageChain {
                                 +At(sender.id)
-                                +PlainText("\n用户不存在！！")
-                                                                                                                                +PlainText("\n请先注册账号再试！！")
+                                +PlainText("用户不存在")
+                                +PlainText("请先注册账号再试")
                             })
                         }else{
                             if("${back.status}"=="401"){
                                 subject.sendMessage(buildMessageChain {
                                     +At(sender.id)
-                                    +PlainText("\n金币不足！！")
-                                                                                                                                                +PlainText("\n先凑够足够的金币再来吧！")
+                                    +PlainText("金币不足")
+                                    +PlainText("先凑够足够的金币再来吧！")
                                 })
                             }else{
                                 if("${back.status}"=="200"){
                                     subject.sendMessage(buildMessageChain {
                                         +At(sender.id)
-                                        +PlainText("\n扣费成功！！")
-                                                                                                                                                                +PlainText("\n你失去了1金币！")
+                                        +PlainText("扣费成功")
+                                        +PlainText("你失去了1金币！")
                                     })
                                     val name =message.serializeToMiraiCode().substring(
                                         message.serializeToMiraiCode().indexOf("二次元游戏查找")+7,
@@ -273,20 +268,20 @@ object Gamebox : KotlinPlugin(
                                     result=response.body?.string().toString()
                                     val jsclass= Gson().fromJson(result,GameResultBack::class.java)
                                     if("${jsclass.status}"=="200"){
-                                            val content="\n${jsclass.data[0].name}:\n${jsclass.data[0].content}"
+                                            val content="${jsclass.data[0].name}:${jsclass.data[0].content}"
                                             val chain = buildMessageChain {
                                             +At(sender.id)
-                                                                                                                                                                                                                                                                        +PlainText("\n找到啦！一共有${jsclass.data.size}条数据！第一条：${content}")
+                                            +PlainText("找到啦！一共有${jsclass.data.size}条数据！第一条：${content}")
                                         }
                                         subject.sendMessage(chain)
                                     }else{
                                         if("${jsclass.status}"=="201"){
                                             subject.sendMessage(buildMessageChain {
-                                                                                                                                                                                                                                                                                                +PlainText("\n暂时没有这个游戏哦！！")
+                                            +PlainText("暂时没有这个游戏哦")
                                             })
                                         }else{
                                             if("${jsclass.status}"=="500"){
-                                                subject.sendMessage("\n出错了！！！")
+                                                subject.sendMessage("出错了")
                                             }
                                         }
                                     }
@@ -298,7 +293,7 @@ object Gamebox : KotlinPlugin(
                     }
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("分享游戏")) {
                         if (message.serializeToMiraiCode().split('#').size <= 1) {
-                            subject.sendMessage("分享格式错误！！！")
+                            subject.sendMessage("分享格式错误")
                         } else{
                         val n = message.serializeToMiraiCode().split('#')[1].trim()
                         val ctent = message.serializeToMiraiCode().split('#')[2].trim()
@@ -319,10 +314,10 @@ object Gamebox : KotlinPlugin(
                         if ("${jsclass.status}" == "200") {
                             subject.sendMessage(buildMessageChain {
                                 +At(sender.id)
-                                +PlainText("\n感谢您的分享！祝你天天开心！经审核后会有积分奖励！\n")
-                                                                                                                                                                                            })
+                                +PlainText("感谢您的分享！祝你天天开心！经审核后会有积分奖励！")
+                            })
                         } else {
-                            subject.sendMessage("分享失败了。。。")
+                            subject.sendMessage("分享失败了")
                         }
                         }
                     }
@@ -342,28 +337,28 @@ object Gamebox : KotlinPlugin(
                         if("${jsclass.status}"=="200"){
                             var content =""
                             for (d in jsclass.data){
-                                content=content+"\n${d.name}:\n${d.content}"
+                                content=content+"${d.name}:${d.content}"
                             }
                             val chain = buildMessageChain {
                                 +At(sender.id)
-                                                                                                                                                                                                +PlainText("\n找到啦！一共有${jsclass.data.size}条数据！${content}")
+                                +PlainText("找到啦！一共有${jsclass.data.size}条数据！${content}")
                             }
                             subject.sendMessage(chain)
                         }else{
                             if("${jsclass.status}"=="201"){
                                 subject.sendMessage(buildMessageChain {
-                                                                                                                                                                                                                        +PlainText("\n暂时没有人分享这个游戏哦！！")
+                                +PlainText("暂时没有人分享这个游戏哦")
                                 })
                             }else{
                                 if("${jsclass.status}"=="500"){
-                                    subject.sendMessage("\n出错了！！！")
+                                    subject.sendMessage("出错了")
                                 }
                             }
                         }
                     }
                     if(message.serializeToMiraiCode().split(']')[1].trim().startsWith("分享说明")){
                         subject.sendMessage(buildMessageChain {
-                            +PlainText("分享游戏说明：\n分享游戏格式为：分享游戏#(里面填游戏名字，括号可删掉)#(里面填游戏说明，括号可删掉)\n游戏说明应包含游戏类型，游戏链接等有用信息")
+                            +PlainText("分享游戏说明：分享游戏格式为：分享游戏#(里面填游戏名字，括号可删掉)#(里面填游戏说明，括号可删掉)游戏说明应包含游戏类型，游戏链接等有用信息")
                         })
                     }
                 }
